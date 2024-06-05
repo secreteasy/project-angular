@@ -1,35 +1,114 @@
-mat-grid-tile {
-    background: lightblue;
-    margin-bottom: 10px;
+.main-container {
+    display: grid;
+    grid-template-areas:
+      "header header"
+      "sidebar content"
+      "footer footer";
+    grid-template-columns: 200px 1fr;
+    grid-template-rows: auto 1fr auto;
+    height: 100vh;
 }
-
-.app-header{
-    width: 100%;
-    height: 8vh;
+  
+.app-header {
+    grid-area: header;
+    background: #4A0072;
+    color: white;
     display: flex;
-    position: sticky;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0 1rem;
+    height: 6vh;
 }
-
-.header-logo{
-    background-color: aqua;
-    width: 100px;
-    height: 50px;
-    justify-self: center;
-    justify-content: center;
-    margin-top: 15px;
-    margin-left: 100px;
-    display: flex;
-    position:relative;
-}
-
+ 
 .header-auth{
-    background-color: red;
-    width: 100px;
-    height: 50px;
-    justify-self: center;
-    justify-content: center;
-    margin-top: 15px;
-    margin-left: 100px;
+    background: aquamarine;
+    color: black;
+    border-radius: 10px;
+    justify-content: space-between;
+    align-items: center;
+    height: 3vh;
+}
+
+.sidebar {
+    grid-area: sidebar;
+    background: #0288D1;
+    color: white;
+    padding: 1rem;
     display: flex;
-    position:relative;
+    flex-direction: column;
+}
+  
+.sidebar a {
+    color: white;
+    text-decoration: none;
+    margin: 0.5rem 0;
+}
+
+.custom-grid-tile {
+    background: #B2EBF2;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+  
+.content {
+    background: #000000;
+    grid-area: content;
+    gap: 10rem;
+}
+  
+.shop-item {
+    /* background: #B2EBF2;
+    padding: 1rem ; */
+    text-align: center;
+    width: 80%;
+    padding: 1rem;
+}
+  
+.shop-name {
+    margin-top: 0.5rem;
+    font-weight: bold;
+}
+  
+.shop-image {
+    width: 100%;
+    height: auto;
+    margin: 0.5rem 0;
+}
+  
+.shop-description {
+    margin-bottom: 0.5rem;
+}  
+  
+.footer {
+    grid-area: footer;
+    background: #4A0072;
+    color: white;
+    text-align: center;
+    padding: 1rem;
+}
+  
+@media (max-width: 600px) {
+    .main-container {
+      grid-template-areas:
+        "header"
+        "sidebar"
+        "content"
+        "footer";
+      grid-template-columns: 1fr;
+      grid-template-rows: auto auto 1fr auto;
+    }
+  
+    .sidebar {
+      flex-direction: row;
+      justify-content: space-around;
+    }
+  
+    .menu-button {
+      display: none;
+    }
+}
+
+::ng-deep .custom-button, .custom-shop, .custom-profile{
+    color: black !important;
 }

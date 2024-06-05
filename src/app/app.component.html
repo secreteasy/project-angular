@@ -1,32 +1,65 @@
-<main>
-    <header class="app-header">
-        <button mat-icon-button [matMenuTriggerFor]="menu" aria-label="Example icon-button with a menu">
-            <mat-icon>more_vert</mat-icon>
-          </button>
-          <mat-menu #menu="matMenu">
-            <button mat-menu-item>
-              <mat-icon>store</mat-icon>
-              <span>Магазины</span>
-            </button>
-            <button mat-menu-item>
-              <mat-icon>shopping_basket</mat-icon>
-              <span>Товары</span>
-            </button>
-            <button mat-menu-item>
-              <mat-icon>account_circle</mat-icon>
-              <span>Профиль</span>
-            </button>
-          </mat-menu>
-          
-        <div class="header-logo">Logo</div>
-        <div class="header-auth">Auth</div>
+<main class="main-container">
+  <header class="app-header">
+    <div class="header-logo">LOGO</div>
+    <a href="#">
+      <button class="header-auth">Авторизация/Регистрация</button>
+    </a>
+  </header>
+  <div class="sidebar">
+    <button mat-button [matMenuTriggerFor]="shops" class="custom-button">Магазины</button>
+    <button mat-button [matMenuTriggerFor]="product" class="custom-shop">Товары</button>
+    <button mat-button class="custom-profile">Профиль</button>
 
+    <mat-menu #shops="matMenu">
+      <button mat-menu-item>Aliexpress</button>
+      <button mat-menu-item [routerLink]="['/product-list']">WB</button>
+      <button mat-menu-item>Ozon</button>
+      <button mat-menu-item>KazanExpress</button>
+    </mat-menu>
 
-    </header>
-    <mat-grid-list cols="1" rowHeight="4:1">
-        <mat-grid-tile>1</mat-grid-tile>
-        <mat-grid-tile>2</mat-grid-tile>
-        <mat-grid-tile>3</mat-grid-tile>
-        <mat-grid-tile>4</mat-grid-tile>
-      </mat-grid-list>    
+    <mat-menu #product="matMenu">
+      <button mat-menu-item>Кросовки</button>
+      <button mat-menu-item>Шорты</button>
+      <button mat-menu-item>Штаны</button>
+      <button mat-menu-item>Футболки</button>
+      <button mat-menu-item>Шапки</button>
+    </mat-menu>
+  </div>
+
+  <router-outlet></router-outlet>
+  
+  <mat-grid-list cols="2" rowHeight="2:1" class="content">
+    <mat-grid-tile class="custom-grid-tile">
+      <div class="shop-item">
+        <div class="shop-name">Aliexpress</div>
+        <img class="shop-image" src="" alt="Картинка">
+        <div class="shop-description">Описание</div>
+      </div>
+    </mat-grid-tile>
+    <mat-grid-tile class="custom-grid-tile">
+      <div class="shop-item">
+        <div class="shop-name">Ozon</div>
+        <img class="shop-image" src="" alt="Картинка">
+        <div class="shop-description">Описание</div>
+      </div>
+    </mat-grid-tile>
+    <mat-grid-tile class="custom-grid-tile">
+      <div class="shop-item">
+        <div class="shop-name">WB</div>
+        <img class="shop-image" src="" alt="Картинка">
+        <div class="shop-description">Описание</div>
+      </div>
+    </mat-grid-tile>
+    <mat-grid-tile class="custom-grid-tile">
+      <div class="shop-item">
+        <div class="shop-name">KazanExpress</div>
+        <img class="shop-image" src="" alt="Картинка">
+        <div class="shop-description">Описание</div>
+      </div>
+    </mat-grid-tile>
+  </mat-grid-list>
+
+  <footer class="footer">
+    Футер со всякой инфой
+  </footer>
 </main>
