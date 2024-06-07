@@ -1,36 +1,6 @@
-<div class="main-container">
-    <header class="app-header">
-      <button mat-icon-button [matMenuTriggerFor]="menu" aria-label="Example icon-button with a menu">
-        <mat-icon>menu</mat-icon>
-      </button>
-      <mat-menu #menu="matMenu">
-        <button mat-menu-item>
-          <mat-icon>store</mat-icon>
-          <span>Магазины</span>
-        </button>
-        <button mat-menu-item>
-          <mat-icon>shopping_basket</mat-icon>
-          <span>Товары</span>
-        </button>
-        <button mat-menu-item>
-          <mat-icon>account_circle</mat-icon>
-          <span>Профиль</span>
-        </button>
-      </mat-menu>
-  
-      <div class="header-logo">LOGO</div>
-      <div class="header-info">Инфо</div>
-      <div class="header-cart">Корзина</div>
-    </header>
-  
-    <aside class="sidebar">
-      <a href="#">Магазины</a>
-      <a href="#">Товары</a>
-      <a href="#">Профиль</a>
-    </aside>
-  
-    <div class="content">
-      <mat-grid-list cols="2" rowHeight="2:1" class="product-grid">
+
+    <!-- <div class="content"> -->
+      <mat-grid-list cols="3" rowHeight="2:1" class="product-grid">
         <mat-grid-tile *ngFor="let product of products" class="custom-grid-tile">
           <div class="product-item">
             <div class="product-name">{{ product.name }}</div>
@@ -41,10 +11,6 @@
           </div>
         </mat-grid-tile>
       </mat-grid-list>
-    </div>
-  
-    <footer class="footer">
-      Футер со всякой инфой
-    </footer>
-  </div>
+    <!-- </div> -->
+
   

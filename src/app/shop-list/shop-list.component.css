@@ -1,0 +1,48 @@
+
+
+.custom-grid-tile {
+    /* background: #b2ebf2; */
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    /* padding: 50px; */
+}
+  
+.content {
+    grid-area: content;
+    display: grid;
+    gap: 100px;
+}
+  
+.shop-item {
+    text-align: center;
+    width: 80%;
+    padding: 0.5rem;
+}
+  
+.shop-name {
+    margin-top: 0.5rem;
+    font-weight: bold;
+}
+  
+.shop-image {
+    width: 100%;
+    height: auto;
+    margin: 0.5rem 0;
+}
+  
+.shop-description {
+    margin-bottom: 0.5rem;
+}  
+
+::ng-deep .custom-button, .custom-shop, .custom-profile{
+    color: black !important;
+}
+
+::ng-deep .mat-grid-tile-content{
+    border: 3px inset  #B2EBF2;
+    border-radius: 20px;
+    width: 98%;
+    height: 98%;
+    justify-self: center;
+}

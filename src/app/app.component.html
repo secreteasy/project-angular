@@ -1,10 +1,12 @@
 <main class="main-container">
+  
   <header class="app-header">
     <div class="header-logo">LOGO</div>
     <a href="#">
       <button class="header-auth">Авторизация/Регистрация</button>
     </a>
   </header>
+  
   <div class="sidebar">
     <button mat-button [matMenuTriggerFor]="shops" class="custom-button">Магазины</button>
     <button mat-button [matMenuTriggerFor]="product" class="custom-shop">Товары</button>
@@ -12,7 +14,7 @@
 
     <mat-menu #shops="matMenu">
       <button mat-menu-item>Aliexpress</button>
-      <button mat-menu-item [routerLink]="['/product-list']">WB</button>
+      <button (click)="openPageProducts()" mat-menu-item [routerLink]="['/product-list']">WB</button>
       <button mat-menu-item>Ozon</button>
       <button mat-menu-item>KazanExpress</button>
     </mat-menu>
@@ -26,39 +28,12 @@
     </mat-menu>
   </div>
 
-  <router-outlet></router-outlet>
-  
   <mat-grid-list cols="2" rowHeight="2:1" class="content">
-    <mat-grid-tile class="custom-grid-tile">
-      <div class="shop-item">
-        <div class="shop-name">Aliexpress</div>
-        <img class="shop-image" src="" alt="Картинка">
-        <div class="shop-description">Описание</div>
-      </div>
-    </mat-grid-tile>
-    <mat-grid-tile class="custom-grid-tile">
-      <div class="shop-item">
-        <div class="shop-name">Ozon</div>
-        <img class="shop-image" src="" alt="Картинка">
-        <div class="shop-description">Описание</div>
-      </div>
-    </mat-grid-tile>
-    <mat-grid-tile class="custom-grid-tile">
-      <div class="shop-item">
-        <div class="shop-name">WB</div>
-        <img class="shop-image" src="" alt="Картинка">
-        <div class="shop-description">Описание</div>
-      </div>
-    </mat-grid-tile>
-    <mat-grid-tile class="custom-grid-tile">
-      <div class="shop-item">
-        <div class="shop-name">KazanExpress</div>
-        <img class="shop-image" src="" alt="Картинка">
-        <div class="shop-description">Описание</div>
-      </div>
-    </mat-grid-tile>
+    <router-outlet></router-outlet>
   </mat-grid-list>
 
+ 
+  
   <footer class="footer">
     Футер со всякой инфой
   </footer>

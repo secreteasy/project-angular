@@ -5,12 +5,11 @@ import { MatGridListModule } from '@angular/material/grid-list';
 import { MatIconModule } from '@angular/material/icon';
 import { MatMenuModule } from '@angular/material/menu';
 import { Router, RouterModule, RouterOutlet } from '@angular/router';
-import { AppRoutingModule } from './app.routes';
 
 @Component({
-  selector: 'app-root',
+  selector: 'shop-list',
   standalone: true,
-  imports: [
+  imports: [    
     RouterOutlet,
     MatGridListModule,
     MatButtonModule,
@@ -18,19 +17,15 @@ import { AppRoutingModule } from './app.routes';
     MatIconModule,
     RouterModule,
     CommonModule,
-    
   ],
-  templateUrl: './app.component.html',
-  styleUrls: ['./app.component.css']
+  templateUrl: './shop-list.component.html',
+  styleUrl: './shop-list.component.css'
 })
-export class AppComponent {
+export class ShopListComponent {
   constructor(
     private router: Router
   ){}
-   
-  
-
-  openPageProducts(){
-    this.router.navigate(['/product-list'])
+  openPageShopList(){
+    this.router.navigate(['/shop-list'])
   }
 }
