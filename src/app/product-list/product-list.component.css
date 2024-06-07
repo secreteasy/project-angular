@@ -5,15 +5,11 @@
 }
 
 .product-grid {
-  background: #f5f5f5;
   grid-area: content;
-  gap: 1rem;
-  padding: 0.5rem;
   overflow-y: auto;
 }
 
 .custom-grid-tile {
-  background: #B2EBF2;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -77,4 +73,9 @@
   .menu-button {
     display: none;
   }
+}
+
+::ng-deep .mat-grid-tile-content{
+  width: 98%;
+  height: 96%;
 }

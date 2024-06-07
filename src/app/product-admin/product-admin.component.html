@@ -1,0 +1,41 @@
+<mat-toolbar color="primary">
+    Админка - Добавление Продуктов
+  </mat-toolbar>
+  
+  <div class="form-container">
+    <form [formGroup]="productForm" (ngSubmit)="onSubmit()">
+      <mat-form-field appearance="fill">
+        <mat-label>Название продукта</mat-label>
+        <input matInput formControlName="name" required>
+      </mat-form-field>
+  
+      <mat-form-field appearance="fill">
+        <mat-label>Ссылка на изображение</mat-label>
+        <input matInput formControlName="image" required>
+      </mat-form-field>
+  
+      <mat-form-field appearance="fill">
+        <mat-label>Описание продукта</mat-label>
+        <textarea matInput formControlName="description" required></textarea>
+      </mat-form-field>
+
+      <mat-form-field appearance="fill">
+        <mat-label>Цена</mat-label>
+        <textarea matInput formControlName="price" required></textarea>
+      </mat-form-field>
+  
+      <button mat-raised-button color="primary" type="submit" [disabled]="productForm.invalid">Добавить продукт</button>
+    </form>
+  </div>
+  
+  <mat-grid-list cols="3" rowHeight="2:1" class="content">
+    <mat-grid-tile *ngFor="let product of products" class="custom-grid-tile">
+      <div class="product-item">
+        <div class="product-name">{{product.name}}</div>
+        <img class="product-image" [src]="product.image" alt="">
+        <div class="product-description">{{product.description}}</div>
+        <button mat-button color="warn" class="product-delete-button" (click)="deleteProduct(product)">Удалить</button>
+      </div>
+    </mat-grid-tile>
+  </mat-grid-list>
+  

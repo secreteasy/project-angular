@@ -23,6 +23,8 @@ import { RouterModule, RouterOutlet } from '@angular/router';
   ],
 })
 export class ProductListComponent {
+  
+
   products = [
     {
       name: 'Товар 1',

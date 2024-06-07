@@ -24,6 +24,15 @@ import { AppRoutingModule } from './app.routes';
   styleUrls: ['./app.component.css']
 })
 export class AppComponent {
+openPageProductAdmin() {
+throw new Error('Method not implemented.');
+}
+openPageShopList() {
+throw new Error('Method not implemented.');
+}
+openPageShopAdmin() {
+throw new Error('Method not implemented.');
+}
   constructor(
     private router: Router
   ){}

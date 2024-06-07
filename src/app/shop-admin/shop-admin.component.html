@@ -1,0 +1,35 @@
+<mat-toolbar color="primary">
+  Админка - Добавление Магазинов
+</mat-toolbar>
+
+<div class="form-container">
+  <form [formGroup]="shopForm" (ngSubmit)="onSubmit()">
+    <mat-form-field appearance="fill">
+      <mat-label>Название магазина</mat-label>
+      <input matInput formControlName="name" required>
+    </mat-form-field>
+
+    <mat-form-field appearance="fill">
+      <mat-label>Ссылка на изображение</mat-label>
+      <input matInput formControlName="image" required>
+    </mat-form-field>
+
+    <mat-form-field appearance="fill">
+      <mat-label>Описание магазина</mat-label>
+      <textarea matInput formControlName="description" required></textarea>
+    </mat-form-field>
+
+    <button mat-raised-button color="primary" type="submit" [disabled]="shopForm.invalid">Добавить магазин</button>
+  </form>
+</div>
+
+<mat-grid-list cols="2" rowHeight="2:1" class="content">
+  <mat-grid-tile *ngFor="let shop of shops" class="custom-grid-tile">
+    <div class="shop-item">
+      <div class="shop-name">{{shop.name}}</div>
+      <img class="shop-image" [src]="shop.image" alt="">
+      <div class="shop-description">{{shop.description}}</div>
+      <button mat-button color="warn" class="shop-delete-button" (click)="deleteShop(shop)">Удалить</button>
+    </div>
+  </mat-grid-tile>
+</mat-grid-list>

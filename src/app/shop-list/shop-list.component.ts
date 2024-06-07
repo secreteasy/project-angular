@@ -28,4 +28,26 @@ export class ShopListComponent {
   openPageShopList(){
     this.router.navigate(['/shop-list'])
   }
+  shops = [
+    {
+      name: 'Aliexpress',
+      image: 'assets/sample1.jpg',
+      description: 'Описание магазина'
+    },
+    {
+      name: 'WB',
+      image: 'assets/sample2.jpg',
+      description: 'Описание магазина'
+    },
+    {
+      name: 'Ozon',
+      image: 'assets/sample3.jpg',
+      description: 'Описание магазина'
+    },
+    {
+      name: 'KazanExpress',
+      image: 'assets/sample4.jpg',
+      description: 'Описание магазина'
+    },
+  ]
 }
