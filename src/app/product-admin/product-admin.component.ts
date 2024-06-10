@@ -1,6 +1,12 @@
 import { CommonModule } from '@angular/common';
 import { Component } from '@angular/core';
-import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
+import {
+  FormBuilder,
+  FormControl,
+  FormGroup,
+  ReactiveFormsModule,
+  Validators,
+} from '@angular/forms';
 import { MatButtonModule } from '@angular/material/button';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatGridListModule } from '@angular/material/grid-list';
@@ -10,12 +16,11 @@ import { MatMenuModule } from '@angular/material/menu';
 import { MatToolbar } from '@angular/material/toolbar';
 import { Router, RouterModule, RouterOutlet } from '@angular/router';
 
-
-interface Product{
+interface Product {
   name: string;
   image: string;
   description: string;
-  price: number
+  price: number;
 }
 
 @Component({
@@ -35,39 +40,53 @@ interface Product{
     MatToolbar,
   ],
   templateUrl: './product-admin.component.html',
-  styleUrl: './product-admin.component.css'
+  styleUrl: './product-admin.component.css',
 })
 export class ProductAdminComponent {
-  productForm: FormGroup;
-  products: Product[] = []
+  productForm = new FormGroup({
+    name: new FormControl('', {
+      nonNullable: true,
+      validators: [Validators.required]
+    }),
+    image: new FormControl('', {
+      nonNullable: true,
+      validators: [Validators.required]
+    }),
+    description: new FormControl('', {
+      nonNullable: true,
+      validators: [Validators.required]
+    }),
+    price: new FormControl('',{
+      nonNullable: true,
+      validators:[Validators.required]
+    }),
+  });
+  products: Product[] = [];
 
-  constructor(
-    private router: Router,
-    private fb: FormBuilder
-  ){
-    this.productForm = this.fb.group({
-      name:['', Validators.required],
-      image: ['', Validators.required],
-      description:['',Validators.required],
-      price: ['', Validators.required]
-    })
+  constructor(private router: Router) {
+
   }
 
-  onSubmit(){
-    if(this.productForm.valid){
-      this.products.push(this.productForm.value);
+  onSubmit() {
+    if (this.productForm.valid) {
+      const formValue = this.productForm.getRawValue()
+      const product: Product = {
+        ...formValue,
+        price: parseFloat(formValue.price)
+      }
+      this.products.push(product);
       this.productForm.reset();
     }
   }
 
-  deleteProduct(product: Product){
+  deleteProduct(product: Product) {
     const index = this.products.indexOf(product);
-    if(index > -1){
-      this.products.splice(index, 1)
+    if (index > -1) {
+      this.products.splice(index, 1);
     }
   }
 
-  openPageProductAdmin(){
-    this.router.navigate(['/product-admin'])
+  openPageProductAdmin() {
+    this.router.navigate(['/product-admin']);
   }
 }

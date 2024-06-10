@@ -1,27 +1,27 @@
 <mat-toolbar color="primary">
-    Админка - Добавление Продуктов
-  </mat-toolbar>
+    Админка - Добавление Товаров
+</mat-toolbar>
   
   <div class="form-container">
     <form [formGroup]="productForm" (ngSubmit)="onSubmit()">
       <mat-form-field appearance="fill">
-        <mat-label>Название продукта</mat-label>
-        <input matInput formControlName="name" required>
+        <mat-label>Название товара</mat-label>
+        <input matInput [formControl]="productForm.controls.name" required>
       </mat-form-field>
   
       <mat-form-field appearance="fill">
         <mat-label>Ссылка на изображение</mat-label>
-        <input matInput formControlName="image" required>
+        <input matInput [formControl]="productForm.controls.image" required>
       </mat-form-field>
   
       <mat-form-field appearance="fill">
-        <mat-label>Описание продукта</mat-label>
-        <textarea matInput formControlName="description" required></textarea>
+        <mat-label>Описание товара</mat-label>
+        <textarea matInput [formControl]="productForm.controls.description" required></textarea>
       </mat-form-field>
 
       <mat-form-field appearance="fill">
         <mat-label>Цена</mat-label>
-        <textarea matInput formControlName="price" required></textarea>
+        <textarea matInput [formControl]="productForm.controls.price" required></textarea>
       </mat-form-field>
   
       <button mat-raised-button color="primary" type="submit" [disabled]="productForm.invalid">Добавить продукт</button>

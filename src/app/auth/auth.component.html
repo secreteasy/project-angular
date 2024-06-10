@@ -1,0 +1,25 @@
+
+   <mat-toolbar color="primary">
+    Авторизация/Регистрация
+  </mat-toolbar>
+  
+  <div class="form-container">
+    <div class="form-content">
+      <mat-form-field appearance="fill">
+        <mat-label>Логин</mat-label>
+        <input matInput [formControl]="authForm.controls.email" required>
+      </mat-form-field>
+    
+      <mat-form-field appearance="fill">
+        <mat-label>Пароль</mat-label>
+        <input matInput [formControl]="authForm.controls.password" required [type]="hide ? 'password' : 'text'">
+        <button mat-icon-button matSuffix (click)="clickEvent($event)" [attr.aria-label]="'Hide password'" [attr.aria-pressed]="hide">
+          <mat-icon>{{hide ? 'visibility_off' : 'visibility'}}</mat-icon>
+        </button>
+      </mat-form-field>
+    
+      <button mat-raised-button color="primary" type="submit" [disabled]="authForm.invalid">Авторизоваться</button>
+      <a mat-raised-button color="primary" type="button" [routerLink]="['/register']">Регистрация</a>
+    </div>
+  </div>
+  

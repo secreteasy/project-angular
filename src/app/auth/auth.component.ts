@@ -1,6 +1,6 @@
 import { CommonModule } from '@angular/common';
 import { Component } from '@angular/core';
-import { FormBuilder, FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
+import { FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import { MatButtonModule } from '@angular/material/button';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatGridListModule } from '@angular/material/grid-list';
@@ -11,14 +11,9 @@ import { MatToolbar } from '@angular/material/toolbar';
 import { Router, RouterModule, RouterOutlet } from '@angular/router';
 
 
-interface Shop {
-  name: string;
-  image: string;
-  description: string;
-}
 
 @Component({
-  selector: 'shop-admin',
+  selector: 'auth',
   standalone: true,
   imports: [
     RouterOutlet,
@@ -33,48 +28,42 @@ interface Shop {
     ReactiveFormsModule,
     MatToolbar,
   ],
-  templateUrl: './shop-admin.component.html',
-  styleUrl: './shop-admin.component.css'
+  templateUrl: './auth.component.html',
+  styleUrl: './auth.component.css'
 })
-export class ShopAdminComponent {
-  shopForm = new FormGroup({
-    name: new FormControl('', {
+export class AuthComponent {
+
+  authForm = new FormGroup({
+    email: new FormControl('',{
       nonNullable: true,
       validators: [Validators.required]
     }),
-    image: new FormControl('', {
-      nonNullable: true,
-      validators: [Validators.required]
-    }),
-    description: new FormControl('', {
+    password: new FormControl('',{
       nonNullable: true,
       validators: [Validators.required]
     }),
   })
-  shops: Shop[] = [];
 
   constructor(
-    private router: Router){
+    private router: Router
+  ) {}
+
+  openPageAuth(){
+    this.router.navigate(['/auth'])
   }
 
-  onSubmit(){
-    if(this.shopForm.valid){
-      const shop: Shop = this.shopForm.getRawValue();
-      this.shops.push(shop);
-      this.shopForm.reset();
+  hide = true;
+  clickEvent(event: MouseEvent) {
+    this.hide = !this.hide;
+    event.stopPropagation();
+  }
+
+  onSubmit() {
+    if (this.authForm.valid) {
+      
     }
   }
 
-  deleteShop(shop: Shop){
-    const index = this.shops.indexOf(shop);
-    if(index > -1){
-      this.shops.splice(index, 1);
-    }
+  register(){
   }
-
-  openPageShopAdmin(){
-    this.router.navigate(['/shop-admin'])
-  }
-
-  
 }

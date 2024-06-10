@@ -6,17 +6,17 @@
   <form [formGroup]="shopForm" (ngSubmit)="onSubmit()">
     <mat-form-field appearance="fill">
       <mat-label>Название магазина</mat-label>
-      <input matInput formControlName="name" required>
+      <input matInput [formControl]="shopForm.controls.name" required>
     </mat-form-field>
 
     <mat-form-field appearance="fill">
       <mat-label>Ссылка на изображение</mat-label>
-      <input matInput formControlName="image" required>
+      <input matInput [formControl]="shopForm.controls.image" required>
     </mat-form-field>
 
     <mat-form-field appearance="fill">
       <mat-label>Описание магазина</mat-label>
-      <textarea matInput formControlName="description" required></textarea>
+      <textarea matInput [formControl]="shopForm.controls.description" required></textarea>
     </mat-form-field>
 
     <button mat-raised-button color="primary" type="submit" [disabled]="shopForm.invalid">Добавить магазин</button>

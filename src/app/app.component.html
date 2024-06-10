@@ -1,10 +1,8 @@
 <main class="main-container">
   
   <header class="app-header">
-    <div (click)="openPageShopList()" [routerLink]="['/shop-list']" class="header-logo">LOGO</div>
-    <a href="#">
-      <button class="header-auth">Авторизация/Регистрация</button>
-    </a>
+    <a [routerLink]="['/shop-list']" class="header-logo">LOGO</a>
+    <a class="header-auth" [routerLink]="['/auth']">Авторизация/Регистрация</a>
   </header>
   
   <div class="sidebar">
@@ -18,13 +16,13 @@
     </mat-menu>
 
     <mat-menu #admin="matMenu"> 
-      <button (click)="openPageShopAdmin()" mat-menu-item  [routerLink]="['/shop-admin']">Магазины</button>
-      <button (click)="openPageProductAdmin()" mat-menu-item  [routerLink]="['/product-admin']">Продукты</button>
+      <a  mat-menu-item  [routerLink]="['/shop-admin']">Магазины</a>
+      <a  mat-menu-item  [routerLink]="['/product-admin']">Товары</a>
     </mat-menu>
 
     <mat-menu #shops="matMenu">
       <button mat-menu-item>Aliexpress</button>
-      <button (click)="openPageProducts()" mat-menu-item [routerLink]="['/product-list']">WB</button>
+      <a mat-menu-item [routerLink]="['/product-list']">WB</a>
       <button mat-menu-item>Ozon</button>
       <button mat-menu-item>KazanExpress</button>
     </mat-menu>
