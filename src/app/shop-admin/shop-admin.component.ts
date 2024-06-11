@@ -9,6 +9,8 @@ import { MatInputModule } from '@angular/material/input';
 import { MatMenuModule } from '@angular/material/menu';
 import { MatToolbar } from '@angular/material/toolbar';
 import { Router, RouterModule, RouterOutlet } from '@angular/router';
+import { ShopAdminservice } from './shop-admin.service';
+import { first } from 'rxjs';
 
 
 interface Shop {
@@ -42,6 +44,10 @@ export class ShopAdminComponent {
       nonNullable: true,
       validators: [Validators.required]
     }),
+    ownerId: new FormControl('', {
+      nonNullable: true,
+      validators: [Validators.required]
+    }),
     image: new FormControl('', {
       nonNullable: true,
       validators: [Validators.required]
@@ -54,11 +60,18 @@ export class ShopAdminComponent {
   shops: Shop[] = [];
 
   constructor(
-    private router: Router){
+    private router: Router,
+    private _shopAdmnin: ShopAdminservice
+  ){
   }
 
   onSubmit(){
     if(this.shopForm.valid){
+      this._shopAdmnin.createShop({
+        name: this.shopForm.controls.name.value,
+        description: this.shopForm.controls.description.value,
+        ownerId: this.shopForm.controls.ownerId.value
+      }).pipe(first()).subscribe();
       const shop: Shop = this.shopForm.getRawValue();
       this.shops.push(shop);
       this.shopForm.reset();

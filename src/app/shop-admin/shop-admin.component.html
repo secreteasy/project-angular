@@ -10,6 +10,11 @@
     </mat-form-field>
 
     <mat-form-field appearance="fill">
+      <mat-label>Владелец(id)</mat-label>
+      <input matInput [formControl]="shopForm.controls.ownerId" required>
+    </mat-form-field>
+
+    <mat-form-field appearance="fill">
       <mat-label>Ссылка на изображение</mat-label>
       <input matInput [formControl]="shopForm.controls.image" required>
     </mat-form-field>
@@ -19,7 +24,7 @@
       <textarea matInput [formControl]="shopForm.controls.description" required></textarea>
     </mat-form-field>
 
-    <button mat-raised-button color="primary" type="submit" [disabled]="shopForm.invalid">Добавить магазин</button>
+    <button mat-raised-button color="primary" type="submit" [disabled]="shopForm.invalid" (click)="onSubmit()">Добавить магазин</button>
   </form>
 </div>
 

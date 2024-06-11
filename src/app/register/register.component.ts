@@ -1,6 +1,11 @@
 import { CommonModule } from '@angular/common';
 import { Component } from '@angular/core';
-import { FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
+import {
+  FormControl,
+  FormGroup,
+  ReactiveFormsModule,
+  Validators,
+} from '@angular/forms';
 import { MatButtonModule } from '@angular/material/button';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatGridListModule } from '@angular/material/grid-list';
@@ -9,6 +14,8 @@ import { MatInputModule } from '@angular/material/input';
 import { MatMenuModule } from '@angular/material/menu';
 import { MatToolbar } from '@angular/material/toolbar';
 import { Router, RouterModule, RouterOutlet } from '@angular/router';
+import { AuthService } from '../auth/auth.service';
+import { first } from 'rxjs';
 @Component({
   selector: 'register',
   standalone: true,
@@ -26,28 +33,27 @@ import { Router, RouterModule, RouterOutlet } from '@angular/router';
     MatToolbar,
   ],
   templateUrl: './register.component.html',
-  styleUrl: './register.component.css'
+  styleUrl: './register.component.css',
 })
 export class RegisterComponent {
-
   registerForm = new FormGroup({
-    userName: new FormControl('',{
+    userName: new FormControl('', {
       nonNullable: true,
-      validators: [Validators.required]
+      validators: [Validators.required],
     }),
-    password: new FormControl('',{
+    password: new FormControl('', {
       nonNullable: true,
-      validators: [Validators.required]
+      validators: [Validators.required],
     }),
-    email: new FormControl('',{
+    email: new FormControl('', {
       nonNullable: true,
-      validators: [Validators.required]
+      validators: [Validators.required],
     }),
-    firstName: new FormControl('',{
+    firstName: new FormControl('', {
       nonNullable: true,
-      validators: [Validators.required]
-    })
-  })
+      validators: [Validators.required],
+    }),
+  });
 
   hide = true;
   clickEvent(event: MouseEvent) {
@@ -56,15 +62,23 @@ export class RegisterComponent {
   }
 
   onSubmit() {
+    console.log('submit');
+
     if (this.registerForm.valid) {
-      
+      this._authService
+        .register({
+          firstName: this.registerForm.controls.firstName.value,
+          email: this.registerForm.controls.email.value,
+          password: this.registerForm.controls.password.value,
+          userName: this.registerForm.controls.userName.value,
+        })
+        .pipe(first())
+        .subscribe();
     }
   }
 
-  constructor(
-    private router: Router
-  ) {}
-  openPageregister(){
-    this.router.navigate(['/register'])
+  constructor(private router: Router, private _authService: AuthService) {}
+  openPageregister() {
+    this.router.navigate(['/register']);
   }
 }

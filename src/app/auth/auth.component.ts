@@ -1,6 +1,11 @@
 import { CommonModule } from '@angular/common';
 import { Component } from '@angular/core';
-import { FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
+import {
+  FormControl,
+  FormGroup,
+  ReactiveFormsModule,
+  Validators,
+} from '@angular/forms';
 import { MatButtonModule } from '@angular/material/button';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatGridListModule } from '@angular/material/grid-list';
@@ -9,8 +14,8 @@ import { MatInputModule } from '@angular/material/input';
 import { MatMenuModule } from '@angular/material/menu';
 import { MatToolbar } from '@angular/material/toolbar';
 import { Router, RouterModule, RouterOutlet } from '@angular/router';
-
-
+import { AuthService } from './auth.service';
+import { first } from 'rxjs';
 
 @Component({
   selector: 'auth',
@@ -29,27 +34,24 @@ import { Router, RouterModule, RouterOutlet } from '@angular/router';
     MatToolbar,
   ],
   templateUrl: './auth.component.html',
-  styleUrl: './auth.component.css'
+  styleUrl: './auth.component.css',
 })
 export class AuthComponent {
-
   authForm = new FormGroup({
-    email: new FormControl('',{
+    email: new FormControl('', {
       nonNullable: true,
-      validators: [Validators.required]
+      validators: [Validators.required],
     }),
-    password: new FormControl('',{
+    password: new FormControl('', {
       nonNullable: true,
-      validators: [Validators.required]
+      validators: [Validators.required],
     }),
-  })
+  });
 
-  constructor(
-    private router: Router
-  ) {}
+  constructor(private router: Router, private _authService: AuthService) {}
 
-  openPageAuth(){
-    this.router.navigate(['/auth'])
+  openPageAuth() {
+    this.router.navigate(['/auth']);
   }
 
   hide = true;
@@ -59,11 +61,18 @@ export class AuthComponent {
   }
 
   onSubmit() {
+    console.log("submit");
+    
     if (this.authForm.valid) {
-      
+      this._authService
+        .login({
+          email: this.authForm.controls.email.value,
+          password: this.authForm.controls.password.value,
+        })
+        .pipe(first())
+        .subscribe();
     }
   }
 
-  register(){
-  }
+  register() {}
 }

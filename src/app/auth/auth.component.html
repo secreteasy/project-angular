@@ -18,7 +18,7 @@
         </button>
       </mat-form-field>
     
-      <button mat-raised-button color="primary" type="submit" [disabled]="authForm.invalid">Авторизоваться</button>
+      <button mat-raised-button color="primary" type="submit" [disabled]="authForm.invalid" (click)="onSubmit()">Авторизоваться</button>
       <a mat-raised-button color="primary" type="button" [routerLink]="['/register']">Регистрация</a>
     </div>
   </div>
