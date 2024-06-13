@@ -10,7 +10,7 @@ import { RegisterComponent } from './register/register.component';
 
 export const routes: Routes = [
   { path:'', redirectTo: '/shop-list', pathMatch:'full' },
-  { path: 'product-list', component: ProductListComponent },
+  { path: 'product-list/:shopId/products', component: ProductListComponent },
   { path: 'shop-list', component: ShopListComponent },
   { path: 'shop-admin', component:ShopAdminComponent },
   { path: 'product-admin', component:ProductAdminComponent },

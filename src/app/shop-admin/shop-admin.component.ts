@@ -14,6 +14,7 @@ import { first } from 'rxjs';
 
 
 interface Shop {
+  id?: number;
   name: string;
   image: string;
   description: string;
@@ -78,16 +79,24 @@ export class ShopAdminComponent {
     }
   }
 
-  deleteShop(shop: Shop){
-    const index = this.shops.indexOf(shop);
-    if(index > -1){
-      this.shops.splice(index, 1);
-    }
+  deleteShop(shopId: number){
+    this._shopAdmnin.deleteShop(shopId).pipe(first()).subscribe(()=>{
+      this.shops = this.shops.filter(s => s.id !== shopId)
+    })
   }
 
   openPageShopAdmin(){
     this.router.navigate(['/shop-admin'])
   }
 
+
+  ngOnInit(){
+    this.loadShops()
+  }
   
+  loadShops(){
+    this._shopAdmnin.getShops().pipe(first()).subscribe((data:Shop[])=>{
+      this.shops = data
+    })
+  }
 }

@@ -4,7 +4,9 @@ import { MatButtonModule } from '@angular/material/button';
 import { MatGridListModule } from '@angular/material/grid-list';
 import { MatIconModule } from '@angular/material/icon';
 import { MatMenuModule } from '@angular/material/menu';
-import { RouterModule, RouterOutlet } from '@angular/router';
+import { ActivatedRoute, Router, RouterModule, RouterOutlet } from '@angular/router';
+import { ProductListService } from './product-list.service';
+import { first } from 'rxjs';
 
 
 @Component({
@@ -23,66 +25,33 @@ import { RouterModule, RouterOutlet } from '@angular/router';
   ],
 })
 export class ProductListComponent {
-  
+  shops: any[] = [];
+  products: any[] = [];
+  selectedShop:  any[] = [];
+  shopId: any;
 
-  products = [
-    {
-      name: 'Товар 1',
-      image: 'assets/sample1.jpg',
-      description: 'Описание товара 1',
-      price: '1000 ₽',
-    },
-    {
-      name: 'Товар 2',
-      image: 'assets/sample2.jpg',
-      description: 'Описание товара 2',
-      price: '2000 ₽',
-    },
-    {
-      name: 'Товар 3',
-      image: 'assets/sample3.jpg',
-      description: 'Описание товара 3',
-      price: '3000 ₽',
-    },
-    {
-      name: 'Товар 4',
-      image: 'assets/sample3.jpg',
-      description: 'Описание товара 4',
-      price: '3000 ₽',
-    },
-    {
-      name: 'Товар 5',
-      image: 'assets/sample3.jpg',
-      description: 'Описание товара 5',
-      price: '3000 ₽',
-    },
-    {
-      name: 'Товар 6',
-      image: 'assets/sample3.jpg',
-      description: 'Описание товара 6',
-      price: '3000 ₽',
-    },
-    {
-      name: 'Товар 7',
-      image: 'assets/sample3.jpg',
-      description: 'Описание товара 7',
-      price: '3000 ₽',
-    },
-    {
-      name: 'Товар 8',
-      image: 'assets/sample3.jpg',
-      description: 'Описание товара 8',
-      price: '3000 ₽',
-    },
-    {
-      name: 'Товар 9',
-      image: 'assets/sample3.jpg',
-      description: 'Описание товара 9',
-      price: '3000 ₽',
-    },
-  ];
+  constructor(private route: ActivatedRoute, private _Shops: ProductListService, private router: Router) {}
 
-  constructor() {}
+  ngOnInit() {
+    console.log('ngOnInit called');
+    this.shopId = this.route.snapshot.paramMap.get('shopId');
+    console.log(`shopId: ${this.shopId}`);
+    this.loadProducts();
+  }
 
-  ngOnInit(): void {}
+  loadProducts() {
+    console.log(`Loading products for shopId: ${this.shopId}`);
+    this._Shops.getProductByShopId(this.shopId)
+      .pipe(first())
+      .subscribe((data: any[]) => {
+        console.log('Received products:', data);
+        this.products = data;
+      }, (error) => {
+        console.error('Failed to load products:', error);
+      });
+  }
+
+  openPageShopById(){
+    this.router.navigate(['/product-list/:shopId/products'])
+  }
 }

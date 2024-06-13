@@ -5,11 +5,19 @@ import { MatGridListModule } from '@angular/material/grid-list';
 import { MatIconModule } from '@angular/material/icon';
 import { MatMenuModule } from '@angular/material/menu';
 import { Router, RouterModule, RouterOutlet } from '@angular/router';
+import { ShopListService } from './shop-list.service';
+import { first } from 'rxjs';
+
+interface Shop {
+  name: string;
+  image: string;
+  description: string;
+}
 
 @Component({
   selector: 'shop-list',
   standalone: true,
-  imports: [    
+  imports: [
     RouterOutlet,
     MatGridListModule,
     MatButtonModule,
@@ -19,35 +27,25 @@ import { Router, RouterModule, RouterOutlet } from '@angular/router';
     CommonModule,
   ],
   templateUrl: './shop-list.component.html',
-  styleUrl: './shop-list.component.css'
+  styleUrl: './shop-list.component.css',
 })
-export class ShopListComponent {
-  constructor(
-    private router: Router
-  ){}
-  openPageShopList(){
-    this.router.navigate(['/shop-list'])
+export class ShopListComponent  {
+  constructor(private router: Router, private _Shops: ShopListService) {}
+  openPageShopList() {
+    this.router.navigate(['/shop-list']);
   }
-  shops = [
-    {
-      name: 'Aliexpress',
-      image: 'assets/sample1.jpg',
-      description: 'Описание магазина'
-    },
-    {
-      name: 'WB',
-      image: 'assets/sample2.jpg',
-      description: 'Описание магазина'
-    },
-    {
-      name: 'Ozon',
-      image: 'assets/sample3.jpg',
-      description: 'Описание магазина'
-    },
-    {
-      name: 'KazanExpress',
-      image: 'assets/sample4.jpg',
-      description: 'Описание магазина'
-    },
-  ]
+  shops: Shop[] = [];
+
+  ngOnInit() {
+    this.loadShops();
+  }
+
+  loadShops() {
+    this._Shops
+      .getShops()
+      .pipe(first())
+      .subscribe((data: Shop[]) => {
+        this.shops = data;
+      });
+  }
 }

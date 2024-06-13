@@ -34,7 +34,7 @@
       <div class="shop-name">{{shop.name}}</div>
       <img class="shop-image" [src]="shop.image" alt="">
       <div class="shop-description">{{shop.description}}</div>
-      <button mat-button color="warn" class="shop-delete-button" (click)="deleteShop(shop)">Удалить</button>
+      <button mat-button color="warn" class="shop-delete-button" (click)="deleteShop(shop.id!)">Удалить</button>
     </div>
   </mat-grid-tile>
 </mat-grid-list>

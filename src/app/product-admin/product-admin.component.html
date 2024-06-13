@@ -10,6 +10,11 @@
       </mat-form-field>
   
       <mat-form-field appearance="fill">
+        <mat-label>Магазин(id)</mat-label>
+        <textarea matInput [formControl]="productForm.controls.shopId" required></textarea>
+      </mat-form-field>
+
+      <mat-form-field appearance="fill">
         <mat-label>Ссылка на изображение</mat-label>
         <input matInput [formControl]="productForm.controls.image" required>
       </mat-form-field>
@@ -34,7 +39,7 @@
         <div class="product-name">{{product.name}}</div>
         <img class="product-image" [src]="product.image" alt="">
         <div class="product-description">{{product.description}}</div>
-        <button mat-button color="warn" class="product-delete-button" (click)="deleteProduct(product)">Удалить</button>
+        <button mat-button color="warn" class="product-delete-button" (click)="deleteProduct(product.id!)">Удалить</button>
       </div>
     </mat-grid-tile>
   </mat-grid-list>
