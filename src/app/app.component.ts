@@ -76,6 +76,6 @@ export class AppComponent implements OnInit{
   }
 
   viewProducts(shopId: number){
-    this.router.navigate(['/product-list', shopId, 'products'])
+    this.router.navigate(['/product-list/shop', shopId, 'products'])
   }
 }

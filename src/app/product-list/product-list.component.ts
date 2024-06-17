@@ -45,10 +45,12 @@ export class ProductListComponent implements OnInit{
 
   ngOnInit() {
     this.route.paramMap.subscribe((params) => {
+      this.shopId = this.route.snapshot.paramMap.get('shopId');
       this.selectedCategory = params.get('category') || '';
-      const shopId = params.get('shopId');
       if (this.selectedCategory) {
         this.loadProductsByCategory(this.selectedCategory);
+      } else if (this.selectedShop) {
+        this.loadProducts();
       }
     });
   }
