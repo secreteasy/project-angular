@@ -11,7 +11,7 @@ export class ProductAdminService{
 
     constructor (private _http: HttpClient){}
 
-    createProduct(product: { name:string; description: string; shopId: string; price: string  }): Observable<any>{
+    createProduct(product: { name:string; description: string; shopName: string; price: string  }): Observable<any>{
         return this._http.post(`${this._baseUrl}/createProduct`,product)
     }
 

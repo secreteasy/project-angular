@@ -1,6 +1,12 @@
 import { CommonModule } from '@angular/common';
-import { Component } from '@angular/core';
-import { FormBuilder, FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
+import { ChangeDetectorRef, Component, OnDestroy, OnInit } from '@angular/core';
+import {
+  FormBuilder,
+  FormControl,
+  FormGroup,
+  ReactiveFormsModule,
+  Validators,
+} from '@angular/forms';
 import { MatButtonModule } from '@angular/material/button';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatGridListModule } from '@angular/material/grid-list';
@@ -10,8 +16,7 @@ import { MatMenuModule } from '@angular/material/menu';
 import { MatToolbar } from '@angular/material/toolbar';
 import { Router, RouterModule, RouterOutlet } from '@angular/router';
 import { ShopAdminservice } from './shop-admin.service';
-import { first } from 'rxjs';
-
+import { BehaviorSubject, first, tap } from 'rxjs';
 
 interface Shop {
   id?: number;
@@ -37,66 +42,79 @@ interface Shop {
     MatToolbar,
   ],
   templateUrl: './shop-admin.component.html',
-  styleUrl: './shop-admin.component.css'
+  styleUrl: './shop-admin.component.css',
 })
-export class ShopAdminComponent {
+export class ShopAdminComponent implements OnInit, OnDestroy {
   shopForm = new FormGroup({
     name: new FormControl('', {
       nonNullable: true,
-      validators: [Validators.required]
+      validators: [Validators.required],
     }),
-    ownerId: new FormControl('', {
+    ownerName: new FormControl('', {
       nonNullable: true,
-      validators: [Validators.required]
+      validators: [Validators.required],
     }),
     image: new FormControl('', {
       nonNullable: true,
-      validators: [Validators.required]
+      validators: [Validators.required],
     }),
     description: new FormControl('', {
       nonNullable: true,
-      validators: [Validators.required]
+      validators: [Validators.required],
     }),
-  })
-  shops: Shop[] = [];
+  });
+
+  shops$ = new BehaviorSubject<Shop[]>([]);
 
   constructor(
     private router: Router,
     private _shopAdmnin: ShopAdminservice
-  ){
-  }
+  ) {}
 
-  onSubmit(){
-    if(this.shopForm.valid){
-      this._shopAdmnin.createShop({
-        name: this.shopForm.controls.name.value,
-        description: this.shopForm.controls.description.value,
-        ownerId: this.shopForm.controls.ownerId.value
-      }).pipe(first()).subscribe();
+  onSubmit() {
+    if (this.shopForm.valid) {
+      this._shopAdmnin
+        .createShop({
+          name: this.shopForm.controls.name.value,
+          description: this.shopForm.controls.description.value,
+          ownerName: this.shopForm.controls.ownerName.value,
+        })
+        .pipe(first())
+        .subscribe(() => {
+          this.loadShops();
+          this.shopForm.reset();
+        });
       const shop: Shop = this.shopForm.getRawValue();
-      this.shops.push(shop);
-      this.shopForm.reset();
     }
   }
 
-  deleteShop(shopId: number){
-    this._shopAdmnin.deleteShop(shopId).pipe(first()).subscribe(()=>{
-      this.shops = this.shops.filter(s => s.id !== shopId)
-    })
+  deleteShop(shopId: number) {
+    this._shopAdmnin
+      .deleteShop(shopId)
+      .pipe(first())
+      .subscribe(() => {
+        this.shops$.next(this.shops$.value.filter((s) => s.id !== shopId));
+      });
   }
 
-  openPageShopAdmin(){
-    this.router.navigate(['/shop-admin'])
+  openPageShopAdmin() {
+    this.router.navigate(['/shop-admin']);
   }
 
-
-  ngOnInit(){
-    this.loadShops()
+  ngOnInit() {
+    this.loadShops();
   }
-  
-  loadShops(){
-    this._shopAdmnin.getShops().pipe(first()).subscribe((data:Shop[])=>{
-      this.shops = data
-    })
+
+  ngOnDestroy(): void {
+    this.shops$.complete();
+  }
+
+  loadShops() {
+    this._shopAdmnin
+      .getShops()
+      .pipe(first(), tap(console.log))
+      .subscribe((data: Shop[]) => {
+        this.shops$.next(data);
+      });
   }
 }

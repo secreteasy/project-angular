@@ -3,15 +3,15 @@
 </mat-toolbar>
 
 <div class="form-container">
-  <form [formGroup]="shopForm" (ngSubmit)="onSubmit()">
+  <form [formGroup]="shopForm">
     <mat-form-field appearance="fill">
       <mat-label>Название магазина</mat-label>
       <input matInput [formControl]="shopForm.controls.name" required>
     </mat-form-field>
 
     <mat-form-field appearance="fill">
-      <mat-label>Владелец(id)</mat-label>
-      <input matInput [formControl]="shopForm.controls.ownerId" required>
+      <mat-label>Владелец(userName)</mat-label>
+      <input matInput [formControl]="shopForm.controls.ownerName" required>
     </mat-form-field>
 
     <mat-form-field appearance="fill">
@@ -29,7 +29,7 @@
 </div>
 
 <mat-grid-list cols="2" rowHeight="2:1" class="content">
-  <mat-grid-tile *ngFor="let shop of shops" class="custom-grid-tile">
+  <mat-grid-tile *ngFor="let shop of shops$ | async" class="custom-grid-tile">
     <div class="shop-item">
       <div class="shop-name">{{shop.name}}</div>
       <img class="shop-image" [src]="shop.image" alt="">

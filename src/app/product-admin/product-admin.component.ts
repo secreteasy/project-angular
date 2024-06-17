@@ -19,7 +19,7 @@ import { ProductAdminService } from './product-admin.service';
 import { first } from 'rxjs';
 
 interface Product {
-  shopId: string;
+  shopName: string;
   id?: number;
   name: string;
   image: string;
@@ -64,7 +64,7 @@ export class ProductAdminComponent {
       nonNullable: true,
       validators:[Validators.required]
     }),
-    shopId: new FormControl('',{
+    shopName: new FormControl('',{
       nonNullable: true,
       validators:[Validators.required]
     }),
@@ -84,7 +84,7 @@ export class ProductAdminComponent {
       this._productAdmin.createProduct({
         name: this.productForm.controls.name.value,
         description: this.productForm.controls.description.value,
-        shopId: this.productForm.controls.shopId.value,
+        shopName: this.productForm.controls.shopName.value,
         price: this.productForm.controls.price.value,
       }).pipe(first()).subscribe((newProduct: Product)=>{
         this.products.push(newProduct);

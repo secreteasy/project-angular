@@ -6,7 +6,7 @@
   </header>
   
   <div class="sidebar">
-    <button mat-button [matMenuTriggerFor]="shops" class="custom-button">Магазины</button>
+    <button mat-button [matMenuTriggerFor]="shopsMenu" class="custom-button">Магазины</button>
     <button mat-button [matMenuTriggerFor]="product" class="custom-shop">Товары</button>
     <button mat-button [matMenuTriggerFor]="profile" class="custom-profile">Профиль</button>
 
@@ -19,13 +19,27 @@
       <a  mat-menu-item  [routerLink]="['/shop-admin']">Магазины</a>
       <a  mat-menu-item  [routerLink]="['/product-admin']">Товары</a>
     </mat-menu>
-
+<!-- 
     <mat-menu #shops="matMenu">
       <button mat-menu-item>Aliexpress</button>
       <a mat-menu-item [routerLink]="['/product-list', '3', 'products']">WB</a>
       <button mat-menu-item>Ozon</button>
       <button mat-menu-item>KazanExpress</button>
+    </mat-menu> -->
+
+    <mat-menu #shopsMenu="matMenu">
+      <button  mat-menu-item *ngFor="let shop of shops" (click)="viewProducts(shop.id)">
+        {{ shop.name }}
+      </button>
     </mat-menu>
+
+    <!-- <mat-menu #shopsMenu="matMenu">
+      <ng-template matMenuContent>
+        <li *ngFor="let shop of shops">
+          <button mat-menu-item>{{ shop.name }}</button>
+        </li>
+      </ng-template>
+    </mat-menu> -->
 
     <mat-menu #product="matMenu">
       <button mat-menu-item>Кросовки</button>

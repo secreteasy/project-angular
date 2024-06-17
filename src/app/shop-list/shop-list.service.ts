@@ -13,4 +13,8 @@ export class ShopListService {
   getShops(): Observable<any> {
     return this._http.get<any>(`${this._baseUrl}/getAllShops`);
   }
+
+  getProductsByShopId(shopId: number): Observable<any> {
+    return this._http.get<any>(`${this._baseUrl}/${shopId}/products`);
+  }
 }

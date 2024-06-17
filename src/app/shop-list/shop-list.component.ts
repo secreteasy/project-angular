@@ -1,5 +1,5 @@
 import { CommonModule } from '@angular/common';
-import { Component } from '@angular/core';
+import { ChangeDetectorRef, Component } from '@angular/core';
 import { MatButtonModule } from '@angular/material/button';
 import { MatGridListModule } from '@angular/material/grid-list';
 import { MatIconModule } from '@angular/material/icon';
@@ -31,9 +31,7 @@ interface Shop {
 })
 export class ShopListComponent  {
   constructor(private router: Router, private _Shops: ShopListService) {}
-  openPageShopList() {
-    this.router.navigate(['/shop-list']);
-  }
+
   shops: Shop[] = [];
 
   ngOnInit() {
@@ -48,4 +46,8 @@ export class ShopListComponent  {
         this.shops = data;
       });
   }
+
+  openPageShopList() {
+    this.router.navigate(['/shop-list']);
+  }  
 }

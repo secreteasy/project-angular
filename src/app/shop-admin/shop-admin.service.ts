@@ -13,7 +13,7 @@ export class ShopAdminservice {
   createShop(shop: {
     name: string;
     description: string;
-    ownerId: string;
+    ownerName: string;
   }): Observable<any> {
     return this._http.post(`${this._baseUrl}/create`, shop);
   }

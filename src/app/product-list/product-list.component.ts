@@ -33,10 +33,12 @@ export class ProductListComponent {
   constructor(private route: ActivatedRoute, private _Shops: ProductListService, private router: Router) {}
 
   ngOnInit() {
-    console.log('ngOnInit called');
-    this.shopId = this.route.snapshot.paramMap.get('shopId');
-    console.log(`shopId: ${this.shopId}`);
-    this.loadProducts();
+    this.route.paramMap.subscribe(params =>{
+      this.shopId = params.get('shopId');
+      this.loadProducts();
+    })
+    // this.shopId = this.route.snapshot.paramMap.get('shopId');
+    // this.loadProducts();
   }
 
   loadProducts() {
