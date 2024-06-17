@@ -25,6 +25,7 @@ interface Product {
   image: string;
   description: string;
   price: string;
+  category: string;
 }
 
 @Component({
@@ -53,6 +54,10 @@ export class ProductAdminComponent {
       validators: [Validators.required]
     }),
     image: new FormControl('', {
+      nonNullable: true,
+      validators: [Validators.required]
+    }),
+    category: new FormControl('', {
       nonNullable: true,
       validators: [Validators.required]
     }),
@@ -86,6 +91,7 @@ export class ProductAdminComponent {
         description: this.productForm.controls.description.value,
         shopName: this.productForm.controls.shopName.value,
         price: this.productForm.controls.price.value,
+        category: this.productForm.controls.category.value,
       }).pipe(first()).subscribe((newProduct: Product)=>{
         this.products.push(newProduct);
         this.productForm.reset();

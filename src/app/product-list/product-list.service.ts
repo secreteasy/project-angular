@@ -9,6 +9,7 @@ export class ProductListService {
 
     private _baseUrl = 'http://localhost:3000/shops';
 
+
     constructor(private _http: HttpClient){}
 
     getProductByShopId(shopId: string):Observable<any>{

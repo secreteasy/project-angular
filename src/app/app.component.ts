@@ -7,13 +7,18 @@ import { MatMenuModule } from '@angular/material/menu';
 import { Router, RouterModule, RouterOutlet } from '@angular/router';
 import { ShopListService } from './shop-list/shop-list.service';
 import { first } from 'rxjs';
+import { ProductAdminService } from './product-admin/product-admin.service';
+import { ProductListService } from './product-list/product-list.service';
+import { CategoryService } from './product-admin/categories.service';
 
 interface Shop {
   id: number;
   name: string;
   description: string;
 }
-
+interface Category{
+  category: string;
+}
 @Component({
   selector: 'app-root',
   standalone: true,
@@ -32,17 +37,21 @@ interface Shop {
 export class AppComponent implements OnInit{
   constructor(
     private router: Router,
-    private _shopService: ShopListService
+    private _shopService: ShopListService,
+    private _categoryService: CategoryService,
   ){}
 
   openPageProducts(){
     this.router.navigate(['/product-list/3/products'])
   }
   shops: Shop[] = [];
-
+  categories: string[] = [];
+  selectedCategory: string = '';
+  products: any[] = [];
 
   ngOnInit() {
     this.loadShops();
+    this.loadCategories();
   }
 
   loadShops() {
@@ -50,6 +59,22 @@ export class AppComponent implements OnInit{
       this.shops = data;
     });
   }
+
+  loadCategories() {
+    this._categoryService.getCategories().subscribe(
+      (data: string[]) => {
+        this.categories = data;
+      },
+      (error) => {
+        console.error('Failed to load categories:', error);
+      }
+    );
+  }
+
+  loadProductsByCategory(category: string) {
+    this.router.navigate(['/product-list/category', category]);
+  }
+
   viewProducts(shopId: number){
     this.router.navigate(['/product-list', shopId, 'products'])
   }

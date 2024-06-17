@@ -15,7 +15,8 @@ export const routes: Routes = [
   { path: 'shop-admin', component:ShopAdminComponent },
   { path: 'product-admin', component:ProductAdminComponent },
   { path: 'auth', component:AuthComponent },
-  { path: 'register', component: RegisterComponent }
+  { path: 'register', component: RegisterComponent },
+  { path: 'product-list/category/:category', component: ProductListComponent },
 ];
 
 @NgModule({

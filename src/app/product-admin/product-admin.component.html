@@ -15,6 +15,11 @@
       </mat-form-field>
 
       <mat-form-field appearance="fill">
+        <mat-label>Категория</mat-label>
+        <textarea matInput [formControl]="productForm.controls.category" required></textarea>
+      </mat-form-field>
+
+      <mat-form-field appearance="fill">
         <mat-label>Ссылка на изображение</mat-label>
         <input matInput [formControl]="productForm.controls.image" required>
       </mat-form-field>

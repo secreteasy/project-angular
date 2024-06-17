@@ -17,6 +17,7 @@ import { MatToolbar } from '@angular/material/toolbar';
 import { Router, RouterModule, RouterOutlet } from '@angular/router';
 import { ShopAdminservice } from './shop-admin.service';
 import { BehaviorSubject, first, tap } from 'rxjs';
+import { CategoryService } from '../product-admin/categories.service';
 
 interface Shop {
   id?: number;
@@ -65,10 +66,12 @@ export class ShopAdminComponent implements OnInit, OnDestroy {
   });
 
   shops$ = new BehaviorSubject<Shop[]>([]);
+ 
 
   constructor(
     private router: Router,
-    private _shopAdmnin: ShopAdminservice
+    private _shopAdmnin: ShopAdminservice,
+ 
   ) {}
 
   onSubmit() {
@@ -108,6 +111,8 @@ export class ShopAdminComponent implements OnInit, OnDestroy {
   ngOnDestroy(): void {
     this.shops$.complete();
   }
+
+
 
   loadShops() {
     this._shopAdmnin
