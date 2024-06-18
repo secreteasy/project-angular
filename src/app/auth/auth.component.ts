@@ -1,21 +1,18 @@
-import { CommonModule } from '@angular/common';
-import { Component } from '@angular/core';
-import {
-  FormControl,
-  FormGroup,
-  ReactiveFormsModule,
-  Validators,
-} from '@angular/forms';
-import { MatButtonModule } from '@angular/material/button';
-import { MatFormFieldModule } from '@angular/material/form-field';
-import { MatGridListModule } from '@angular/material/grid-list';
-import { MatIconModule } from '@angular/material/icon';
-import { MatInputModule } from '@angular/material/input';
-import { MatMenuModule } from '@angular/material/menu';
-import { MatToolbar } from '@angular/material/toolbar';
-import { Router, RouterModule, RouterOutlet } from '@angular/router';
+// auth.component.ts
+import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
+import { FormGroup, FormControl, Validators, ReactiveFormsModule } from '@angular/forms';
 import { AuthService } from './auth.service';
-import { first } from 'rxjs';
+import { first } from 'rxjs/operators';
+import { MatGridListModule } from '@angular/material/grid-list';
+import { MatButtonModule } from '@angular/material/button';
+import { MatMenuModule } from '@angular/material/menu';
+import { MatIconModule } from '@angular/material/icon';
+import { RouterModule, RouterOutlet } from '@angular/router';
+import { CommonModule } from '@angular/common';
+import { MatFormFieldModule } from '@angular/material/form-field';
+import { MatInputModule } from '@angular/material/input';
+import { MatToolbar } from '@angular/material/toolbar';
 
 @Component({
   selector: 'auth',
@@ -34,13 +31,13 @@ import { first } from 'rxjs';
     MatToolbar,
   ],
   templateUrl: './auth.component.html',
-  styleUrl: './auth.component.css',
+  styleUrls: ['./auth.component.css'],
 })
-export class AuthComponent {
+export class AuthComponent implements OnInit {
   authForm = new FormGroup({
     email: new FormControl('', {
       nonNullable: true,
-      validators: [Validators.required],
+      validators: [Validators.required, Validators.email],
     }),
     password: new FormControl('', {
       nonNullable: true,
@@ -49,6 +46,8 @@ export class AuthComponent {
   });
 
   constructor(private router: Router, private _authService: AuthService) {}
+
+  ngOnInit(): void {}
 
   openPageAuth() {
     this.router.navigate(['/auth']);
@@ -60,17 +59,45 @@ export class AuthComponent {
     event.stopPropagation();
   }
 
+  // onSubmit() {
+  //   console.log("submit");
+
+  //   if (this.authForm.valid) {
+  //     this._authService
+  //       .login(
+  //         this.authForm.controls.email.value,
+  //         this.authForm.controls.password.value
+  //       )
+  //       .pipe(first())
+  //       .subscribe();
+  //   }
+  // }
+
   onSubmit() {
     console.log("submit");
-    
+  
     if (this.authForm.valid) {
+      console.log('Form is valid, calling login...');
       this._authService
-        .login({
-          email: this.authForm.controls.email.value,
-          password: this.authForm.controls.password.value,
-        })
+        .login(
+          this.authForm.controls.email.value,
+          this.authForm.controls.password.value
+        )
         .pipe(first())
-        .subscribe();
+        .subscribe({
+          next: (data) => {
+            console.log('Login successful:', data);
+            const role = this._authService.getRole();
+            if (role === 'admin') {
+              this.router.navigate(['/admin']);
+            } else if (role === 'user') {
+              this.router.navigate(['/user']);
+            }
+          },
+          error: (error) => {
+            console.error('Login failed:', error);
+          }
+        });
     }
   }
 

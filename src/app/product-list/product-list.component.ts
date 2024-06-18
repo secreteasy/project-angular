@@ -13,6 +13,7 @@ import {
 import { ProductListService } from './product-list.service';
 import { first } from 'rxjs';
 import { CategoryService } from '../product-admin/categories.service';
+import { PurchaseService } from '../purchase/purchase.service';
 
 @Component({
   selector: 'product-list',
@@ -41,7 +42,24 @@ export class ProductListComponent implements OnInit{
     private _Shops: ProductListService,
     private router: Router,
     private _categoryService: CategoryService,
+    private _purchaseService: PurchaseService,
   ) {}
+
+  buyProduct(product: any){
+    const purchaseData = {
+      productId: product.id,
+      userId: 1,
+      price: product.price
+    }
+
+    this._purchaseService.createPurchase(purchaseData).subscribe(response =>{
+      console.log('Purchase created successfully:', response);
+      alert('Покупка успешно завершена');
+    }, error => {
+      console.error('Error creating purchase:', error);
+      alert('Ошибка при совершении покупки');
+    });
+  }
 
   ngOnInit() {
     this.route.paramMap.subscribe((params) => {

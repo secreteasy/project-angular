@@ -1,5 +1,3 @@
-
-    <!-- <div class="content"> -->
       <mat-grid-list cols="3" rowHeight="2:1" class="product-grid">
         <mat-grid-tile *ngFor="let product of products" class="custom-grid-tile">
           <div class="product-item">
@@ -7,10 +5,9 @@
             <img class="product-image" [src]="product.image" alt="Картинка">
             <div class="product-description">{{ product.description }}</div>
             <div class="product-price">{{ product.price }}</div>
-            <button mat-button class="buy-button">Купить</button>
+            <button mat-button class="buy-button" (click)="buyProduct(product)">Купить</button>
           </div>
         </mat-grid-tile>
       </mat-grid-list>
-    <!-- </div> -->
 
   
