@@ -2,22 +2,21 @@
   
   <header class="app-header">
     <a [routerLink]="['/shop-list']" class="header-logo">LOGO</a>
-    <a class="header-auth" [routerLink]="['/auth']">Авторизация/Регистрация</a>
+    <a *ngIf="!isLoggedIn" class="header-auth" [routerLink]="['/auth']">Авторизация/Регистрация</a>
+    <button *ngIf="isLoggedIn" mat-button (click)="logout()">Выйти</button>
   </header>
   
   <div class="sidebar">
     <button mat-button [matMenuTriggerFor]="shopsMenu" class="custom-button">Магазины</button>
     <button mat-button [matMenuTriggerFor]="productMenu" class="custom-shop">Товары</button>
-    <button mat-button [matMenuTriggerFor]="profile" class="custom-profile">Профиль</button>
-
-    <mat-menu #profile="matMenu">
-      <button mat-menu-item [matMenuTriggerFor]="admin">Админ</button>
-      <button mat-menu-item>Пользователь</button>
-    </mat-menu>
-
-    <mat-menu #admin="matMenu"> 
-      <a  mat-menu-item  [routerLink]="['/shop-admin']">Магазины</a>
-      <a  mat-menu-item  [routerLink]="['/product-admin']">Товары</a>
+    <button mat-button [routerLink]="['/profile']" class="custom-profile">Профиль</button> 
+    <button mat-button [matMenuTriggerFor]="admin" class="custom-profile"  *ngIf="isAdmin">Администрирование</button> 
+    <!-- *ngIf="isLoggedIn" -->
+   
+    <mat-menu  #admin="matMenu" > 
+      <a  mat-menu-item *ngIf="isAdmin" [routerLink]="['/shop-admin']">Магазины</a>
+      <a  mat-menu-item *ngIf="isAdmin" [routerLink]="['/product-admin']">Товары</a>
+      <a  mat-menu-item *ngIf="isAdmin" [routerLink]="['/purchase-management']">Покупки</a>
     </mat-menu>
 
     <mat-menu #productMenu="matMenu">

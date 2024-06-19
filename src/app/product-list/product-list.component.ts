@@ -14,6 +14,7 @@ import { ProductListService } from './product-list.service';
 import { first } from 'rxjs';
 import { CategoryService } from '../product-admin/categories.service';
 import { PurchaseService } from '../purchase/purchase.service';
+import { AuthService } from '../auth/auth.service';
 
 @Component({
   selector: 'product-list',
@@ -43,12 +44,20 @@ export class ProductListComponent implements OnInit{
     private router: Router,
     private _categoryService: CategoryService,
     private _purchaseService: PurchaseService,
+    private authService: AuthService,
   ) {}
 
   buyProduct(product: any){
+    const userId = this.authService.getUserId();
+
+    if (!userId) {
+      alert('Пользователь не авторизован');
+      return;
+    }
+
     const purchaseData = {
       productId: product.id,
-      userId: 1,
+      userId: userId,
       price: product.price
     }
 

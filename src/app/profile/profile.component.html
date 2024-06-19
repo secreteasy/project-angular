@@ -1,0 +1,20 @@
+<div class="profile-container" *ngIf="user">
+  <h2>Ваш Профиль</h2>
+  <div class="profile-details">
+    <p><strong>Email:</strong> {{ user?.email }}</p>
+    <p><strong>Username:</strong> {{ user?.userName }}</p>
+    <p><strong>Имя:</strong> {{ user?.firstName }}</p>
+  </div>
+</div>
+
+<div class="purchases-container" *ngIf="purchases && purchases.length > 0">
+  <h3>Ваши покупки</h3>
+  <ul class="purchase-list">
+    <li class="purchase-item" *ngFor="let purchase of purchases">
+      <p><strong>Товар:</strong> {{ purchase.product?.name }}</p>
+      <p><strong>Цена:</strong> {{ purchase?.price }}</p>
+      <p><strong>Дата:</strong> {{ purchase?.date | date }}</p>
+      <p><strong>Статус:</strong> {{ purchase?.status }}</p>
+    </li>
+  </ul>
+</div>

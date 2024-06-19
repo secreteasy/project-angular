@@ -10,6 +10,7 @@ import { first } from 'rxjs';
 import { ProductAdminService } from './product-admin/product-admin.service';
 import { ProductListService } from './product-list/product-list.service';
 import { CategoryService } from './product-admin/categories.service';
+import { AuthService } from './auth/auth.service';
 
 interface Shop {
   id: number;
@@ -39,6 +40,7 @@ export class AppComponent implements OnInit{
     private router: Router,
     private _shopService: ShopListService,
     private _categoryService: CategoryService,
+    private authService: AuthService,
   ){}
 
   openPageProducts(){
@@ -48,10 +50,17 @@ export class AppComponent implements OnInit{
   categories: string[] = [];
   selectedCategory: string = '';
   products: any[] = [];
+  isLoggedIn: boolean = false;
+  isAdmin: boolean = false;
+
 
   ngOnInit() {
     this.loadShops();
     this.loadCategories();
+    this.authService.currentUser.subscribe(user =>{
+      this.isLoggedIn = !!user;
+      this.isAdmin = user?.role === 'admin';
+    })
   }
 
   loadShops() {
@@ -77,5 +86,10 @@ export class AppComponent implements OnInit{
 
   viewProducts(shopId: number){
     this.router.navigate(['/product-list/shop', shopId, 'products'])
+  }
+  
+  logout(){
+    this.authService.logout();
+    this.router.navigate(['/'])
   }
 }

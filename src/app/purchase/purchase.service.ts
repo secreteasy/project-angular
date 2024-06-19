@@ -15,4 +15,16 @@ export class PurchaseService{
     createPurchase(purchaseData: any): Observable<any>{
         return this._http.post(`${this._baseUrl}/purchases/createPurchase`, purchaseData)
     }
+
+    getPurchases(): Observable<any>{
+        return this._http.get<any[]>(`${this._baseUrl}/purchases/findAll`)
+    }
+
+    confirmPurchase(id: number): Observable<any>{
+        return this._http.post(`${this._baseUrl}/purchases/${id}/confirm`,{})
+    }
+
+    rejectPurchase(id: number): Observable<any>{
+        return this._http.delete(`${this._baseUrl}/purchases/${id}/reject`)
+    }
 }

@@ -10,6 +10,8 @@ import { RegisterComponent } from './register/register.component';
 import { AdminComponent } from './admin/admin.component';
 import { UserComponent } from './user/user.component';
 import { AuthGuard } from './auth/auth.guard';
+import { ProfileComponent } from './profile/profile.component';
+import { PurchaseManagementComponent } from './purchase-management/purchase-management.component';
 
 export const routes: Routes = [
   { path:'', redirectTo: '/shop-list', pathMatch:'full' },
@@ -22,6 +24,8 @@ export const routes: Routes = [
   { path: 'product-list/category/:category', component: ProductListComponent },
   { path: 'admin', component: AdminComponent, canActivate: [AuthGuard], data: { roles: ['admin'] } },
   { path: 'user', component: UserComponent, canActivate: [AuthGuard], data: { roles: ['user'] } },
+  { path: 'profile', component: ProfileComponent },
+  { path: 'purchase-management', component: PurchaseManagementComponent },
 ];
 
 @NgModule({

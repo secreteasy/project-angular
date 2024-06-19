@@ -1,0 +1,14 @@
+<div class="purchase-container" *ngIf="purchases && purchases.length > 0">
+    <h3>Управление покупками</h3>
+    <ul class="purchase-list">
+      <li class="purchase-item" *ngFor="let purchase of purchases">
+        <p><strong>Товар:</strong> {{ purchase.product?.name }}</p>
+        <p><strong>Цена:</strong> {{ purchase?.price }}</p>
+        <p><strong>Дата:</strong> {{ purchase?.date | date }}</p>
+        <p><strong>Статус:</strong> {{ purchase?.status }}</p>
+        <button mat-raised-button color="primary" (click)="confirmPurchase(purchase.id)">Подтвердить</button>
+        <button mat-raised-button color="warn" (click)="openRejectDialog(purchase.id)">Отклонить</button>
+      </li>
+    </ul>
+  </div>
+  
