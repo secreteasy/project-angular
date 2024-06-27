@@ -27,7 +27,7 @@ getUserProfile(id: number): Observable<any> {
   getUserPurchases(userId: number): Observable<any[]> {
     const token = this.authService.currentUserValue?.token;
     const headers = new HttpHeaders().set('Authorization', `Bearer ${token}`);
-    return this._http.get<any[]>(`${this._baseUrl}/user/${userId}/purchases`, { headers });
+    return this._http.get<any[]>(`${this._baseUrl}/user/purchases`, { headers }); //  /${userId}
   }
 
 }
